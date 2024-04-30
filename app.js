@@ -20,6 +20,13 @@ app.set('view engine', 'ejs')
 // routes
 app.use('/', require('./server/routes/index'))
 
+app.get('*', (req, res) => {
+	res.status(404).render('404', {
+		title: '404 | cashmate',
+		description: 'Sayfa Bulunamadı'
+	})
+})
+
 app.listen(port, () => {
 	console.log(`Server started on http://localhost:${port}`)
 })
