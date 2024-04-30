@@ -1,0 +1,14 @@
+:root {
+	--bs-primary-rgb: #000000;
+}
+
+body {
+	font-family: 'Poppins', sans-serif;
+	color: var(--bs-primary-rgb);
+	font-weight: 300;
+	font-size: 1.2rem;
+}
+
+.container-fluid-custom {
+	max-width: 1600px;
+}
