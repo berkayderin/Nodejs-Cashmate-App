@@ -1,1 +1,38 @@
-<h1>dashboard</h1>
+<div class="container-fluid container-fluid-custom">
+	<div class="row mb-4">
+		<div class="col-md-8">Hoşgeldin, <span class="fw-bold"><%- firstName %></span></div>
+		<div class="col-md-4 text-end">
+			<a href="/dashboard/add" class="btn btn-success btn-md">Yeni Ekle</a>
+		</div>
+	</div>
+
+	<div class="row">
+		<% if(transactions.length > 0) { transactions.forEach(function(transaction) { %>
+		<div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+			<div class="card transaction-card <%= transaction.type === 'expense' ? 'border-danger' : 'border-success' %>">
+				<div class="card-body">
+					<p class="card-text mb-0"><strong>Harcama:</strong> <%- transaction.description %></p>
+					<p class="card-text">
+						<strong>Miktar:</strong>
+						<span class="<%= transaction.type === 'expense' ? 'text-danger' : 'text-success' %>">
+							<%= transaction.type === 'expense' ? '-' : '+' %><%- transaction.amount %> TL
+						</span>
+					</p>
+					<div class="d-flex justify-content-end">
+						<a href="/dashboard/edit/<%- transaction.id %>" class="btn btn-primary me-2">
+							<i class="fas fa-edit"></i>
+						</a>
+						<a href="/dashboard/delete/<%- transaction.id %>" class="btn btn-danger">
+							<i class="fas fa-trash-alt"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<% }); } else { %>
+		<div class="col">
+			<p>Henüz hiç işlem eklenmemiş.</p>
+		</div>
+		<% } %>
+	</div>
+</div>
