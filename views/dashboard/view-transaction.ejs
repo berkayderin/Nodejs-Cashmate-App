@@ -1,0 +1,67 @@
+<div class="container-fluid container-fluid-custom pb-5 mb-5">
+	<div class="row mb-4">
+		<div class="col">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="/dashboard">Panel</a></li>
+					<li class="breadcrumb-item active"><%= transaction.description %></li>
+				</ol>
+			</nav>
+
+			<div class="col d-flex justify-content-between align-items-center">
+				<h1><%= transaction.description %></h1>
+				<div>
+					<a
+						href="/dashboard/<%= transaction._id %>/delete"
+						class="btn btn-danger me-2"
+						data-bs-toggle="modal"
+						data-bs-target="#deleteModal"
+						id="deleteButton"
+						>Sil</a
+					>
+					<a href="/dashboard/<%= transaction._id %>/edit" class="btn btn-primary">Düzenle</a>
+				</div>
+			</div>
+
+			<div class="card transaction-card <%= transaction.type === 'expense' ? 'border-danger' : 'border-success' %>">
+				<div class="card-body">
+					<p class="card-text mb-0"><strong>Harcama:</strong> <%= transaction.description %></p>
+					<p class="card-text">
+						<strong>Miktar:</strong>
+						<span class="<%= transaction.type === 'expense' ? 'text-danger' : 'text-success' %>">
+							<%= transaction.type === 'expense' ? '-' : '+' %><%= transaction.amount %> TL
+						</span>
+					</p>
+					<p class="card-text"><strong>Tarih:</strong> <%= transaction.date %></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div
+	class="modal fade"
+	tabindex="-1"
+	id="deleteModal"
+	aria-labelledby="deleteModalLabel"
+	aria-hidden="true"
+	data-bs-keyboard="false"
+	data-bs-focus="true"
+>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Silme İşlemi</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<strong><%= transaction.description %></strong> adlı harcamayı silmek istediğinize emin misiniz?
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
+				<a href="/dashboard/<%= transaction._id %>/delete" class="btn btn-danger">Sil</a>
+			</div>
+		</div>
+	</div>
+</div>

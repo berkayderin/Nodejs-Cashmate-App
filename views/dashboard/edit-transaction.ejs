@@ -1,0 +1,40 @@
+
+<div class="container-fluid container-fluid-custom pb-5 mb-5">
+    <div class="row mb-4">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/dashboard">Panel</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Düzenleme Sayfasındasın</li>
+                </ol>
+            </nav>
+
+            <form action="/dashboard/<%= transaction._id %>/edit" method="POST">
+                <div class="mb-3">
+                    <label for="description" class="form-label">Açıklama</label>
+                    <input type="text" class="form-control" id="description" name="description" value="<%= transaction.description %>" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="amount" class="form-label">Miktar (TL)</label>
+                    <input type="number" class="form-control" id="amount" name="amount" value="<%= transaction.amount %>" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="type" class="form-label">Tip</label>
+                    <select class="form-select" id="type" name="type" required>
+                        <option value="income" <%= transaction.type === 'income' ? 'selected' : '' %>>Gelir</option>
+                        <option value="expense" <%= transaction.type === 'expense' ? 'selected' : '' %>>Gider</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="date" class="form-label">Tarih</label>
+                    <input type="date" class="form-control" id="date" name="date" value="<%= date %>" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Kaydet</button>
+            </form>
+        </div>
+    </div>
+</div>
+
