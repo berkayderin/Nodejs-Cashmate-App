@@ -1,3 +1,6 @@
+require('dotenv').config()
+const nodemailer = require('nodemailer')
+
 exports.homepage = async (req, res) => {
 	const locals = {
 		title: 'Ana Sayfa | cashmate',
