@@ -1,19 +1,34 @@
 <div class="container-fluid">
-	<header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4">
-		<a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-decoration-none">
-			<img src="/img/cashmate-logo.svg" alt="logo" width="200" />
+	<header class="navbar navbar-expand-lg">
+		<a href="/" class="navbar-brand">
+			<img src="/img/cashmate-logo.svg" alt="CashMate Logo" width="200" />
 		</a>
-
-		<ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-			<li><a href="/" class="nav-link px-2 text-primary">Ana Sayfa</a></li>
-			<li><a href="/feat" class="nav-link px-2 text-primary">Features</a></li>
-			<li><a href="/faqs" class="nav-link px-2 text-primary">FAQs</a></li>
-			<li><a href="/about" class="nav-link px-2 text-primary">Hakkımızda</a></li>
-		</ul>
-
-		<div class="col-md-3 text-end">
-			<a href="/auth/google" type="button" class="btn btn-outline-dark me-2">Giriş Yap</a>
-			<a href="/auth/google" type="button" class="btn btn-dark">Kayıt Ol</a>
+		<button
+			class="navbar-toggler"
+			type="button"
+			data-bs-toggle="collapse"
+			data-bs-target="#navbarNav"
+			aria-controls="navbarNav"
+			aria-expanded="false"
+			aria-label="Toggle navigation"
+		>
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav mx-auto custom-nav">
+				<li class="nav-item"><a href="/" class="nav-link text-primary">Ana Sayfa</a></li>
+				<li class="nav-item"><a href="/features" class="nav-link text-primary">Özellikler</a></li>
+				<li class="nav-item"><a href="/about" class="nav-link text-primary">Hakkımızda</a></li>
+			</ul>
+			<div class="text-end">
+				<% if (isAuthenticated) { %>
+				<a href="/dashboard" class="btn btn-outline-dark me-2">Panele Git</a>
+				<a href="/logout" class="btn btn-dark">Çıkış Yap</a>
+				<% } else { %>
+				<a href="/auth/google" class="btn btn-outline-dark me-2">Giriş Yap</a>
+				<a href="/auth/google" class="btn btn-dark">Kayıt Ol</a>
+				<% } %>
+			</div>
 		</div>
 	</header>
 </div>
