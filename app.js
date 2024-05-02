@@ -24,8 +24,8 @@ app.use(
 )
 
 // passport ayarları
-app.use(passport.initialize()) // passport başlat
-app.use(passport.session()) // passport session
+app.use(passport.initialize())
+app.use(passport.session())
 
 // kullanıcı bilgilerini global olarak kullanmak için
 app.use((req, res, next) => {
