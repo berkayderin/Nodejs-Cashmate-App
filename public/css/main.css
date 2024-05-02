@@ -33,3 +33,16 @@ body {
 	transform: translateY(-5px);
 	box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
 }
+
+@media (min-width: 992px) {
+	/* lg breakpoint için */
+	.custom-nav {
+		justify-content: center; /* Büyük ekranlarda menü öğeleri merkeze */
+	}
+}
+@media (max-width: 991px) {
+	/* md breakpoint'ten küçük ekranlar için */
+	.custom-nav {
+		justify-content: flex-start; /* Mobilde menü öğeleri sola */
+	}
+}
