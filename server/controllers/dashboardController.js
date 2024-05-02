@@ -154,7 +154,7 @@ exports.createTransaction = async (req, res) => {
 }
 
 // income / gelir sayfasını getir
-exports.income = async (req, res) => {
+exports.incomes = async (req, res) => {
 	const locals = {
 		title: 'Gelirlerim | cashmate',
 		description: 'Income page'
@@ -186,6 +186,42 @@ exports.income = async (req, res) => {
 		})
 	} catch (error) {
 		console.error('Error rendering income page:', error)
+		res.status(500).send('Internal Server Error')
+	}
+}
+
+exports.expenses = async (req, res) => {
+	const locals = {
+		title: 'Giderlerim | cashmate',
+		description: 'Expenses page'
+	}
+
+	try {
+		const transactions = await Transaction.find({
+			userId: req.user.id,
+			type: 'expense'
+		}).sort({ date: -1 })
+
+		// toplam gider
+		const totalExpense = transactions.reduce((acc, transaction) => acc + transaction.amount, 0)
+
+		// maksimum gider
+		const maxExpense = transactions.reduce((acc, transaction) => Math.max(acc, transaction.amount), 0)
+
+		// minimum gider
+		const minExpense = transactions.reduce((acc, transaction) => Math.min(acc, transaction.amount), 0)
+
+		res.render('dashboard/expenses', {
+			firstName: req.user.firstName,
+			locals,
+			transactions,
+			totalExpense,
+			maxExpense,
+			minExpense,
+			layout: '../views/layouts/dashboard'
+		})
+	} catch (error) {
+		console.error('Error rendering expenses page:', error)
 		res.status(500).send('Internal Server Error')
 	}
 }

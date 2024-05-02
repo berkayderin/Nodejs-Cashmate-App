@@ -5,7 +5,9 @@ const dashboardController = require('../controllers/dashboardController')
 
 router.get('/dashboard', isLoggedIn, dashboardController.dashboard)
 router.get('/dashboard/add', isLoggedIn, dashboardController.addTransaction)
-router.get('/dashboard/incomes', isLoggedIn, dashboardController.income)
+
+router.get('/dashboard/incomes', isLoggedIn, dashboardController.incomes)
+router.get('/dashboard/expenses', isLoggedIn, dashboardController.expenses)
 
 router.post('/dashboard/add', isLoggedIn, dashboardController.createTransaction)
 router.get('/dashboard/:id', isLoggedIn, dashboardController.dashboardViewTransaction)
