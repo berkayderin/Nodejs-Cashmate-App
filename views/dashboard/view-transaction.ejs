@@ -39,6 +39,7 @@
 	</div>
 </div>
 
+<!-- Delete Modal -->
 <div
 	class="modal fade"
 	tabindex="-1"
@@ -59,8 +60,10 @@
 			</div>
 
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
-				<a href="/dashboard/<%= transaction._id %>/delete" class="btn btn-danger">Sil</a>
+				<form action="/dashboard/<%= transaction._id %>/delete?_method=DELETE" method="POST">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
+					<button type="submit" class="btn btn-danger">Sil</button>
+				</form>
 			</div>
 		</div>
 	</div>

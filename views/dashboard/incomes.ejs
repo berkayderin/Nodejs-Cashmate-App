@@ -1,0 +1,43 @@
+<div class="container-fluid container-fluid-custom mt-4">
+	<div class="d-flex justify-content-between align-items-center mb-4">
+		<h2 class="mb-0">Gelirler Listesi</h2>
+		<div class="d-flex align-items-center gap-3">
+			<p>Toplam gelir: <strong><%= totalIncome %></strong> TL</p>
+			<p>Maksimum gelir: <strong><%= maxIncome %></strong> TL</p>
+			<p>Minimum gelir: <strong><%= minIncome %></strong> TL</p>
+		</div>
+	</div>
+	<div class="table-responsive">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Açıklama</th>
+					<th scope="col">Tarih</th>
+					<th scope="col">Miktar</th>
+					<th scope="col">Aksiyonlar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% if (transactions && transactions.length > 0) { %> <% transactions.forEach((transaction, index) => { %>
+				<tr>
+					<th scope="row"><%= index + 1 %></th>
+					<td><%= transaction.description %></td>
+					<td><%= transaction.date %></td>
+					<td><%= transaction.amount %></td>
+					<td>
+						<a href="/dashboard/<%= transaction._id %>/edit" class="btn btn-primary">Düzenle</a>
+						<form action="/dashboard/<%= transaction._id %>/delete?_method=DELETE" method="POST" class="d-inline">
+							<button type="submit" class="btn btn-danger">Sil</button>
+						</form>
+					</td>
+				</tr>
+				<% }); %> <% } else { %>
+				<tr>
+					<td colspan="5" class="text-center">Henüz gelir eklenmemiş.</td>
+				</tr>
+				<% } %>
+			</tbody>
+		</table>
+	</div>
+</div>

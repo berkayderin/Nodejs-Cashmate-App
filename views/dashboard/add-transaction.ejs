@@ -1,0 +1,26 @@
+<div class="container-fluid container-fluid-custom pb-5 mb-5">
+	<h2 class="mb-4">Yeni İşlem Ekle</h2>
+	<form action="/dashboard/add" method="POST">
+		<div class="mb-3">
+			<label for="type" class="form-label">Tip</label>
+			<select class="form-select" id="type" name="type" required>
+				<option value="">Seçiniz...</option>
+				<option value="income">Gelir</option>
+				<option value="expense">Gider</option>
+			</select>
+		</div>
+		<div class="mb-3">
+			<label for="amount" class="form-label">Miktar</label>
+			<input type="number" class="form-control" id="amount" name="amount" placeholder="Miktar giriniz" required />
+		</div>
+		<div class="mb-3">
+			<label for="description" class="form-label">Açıklama</label>
+			<input type="text" class="form-control" id="description" name="description" placeholder="Açıklama" />
+		</div>
+		<div class="mb-3">
+			<label for="date" class="form-label">Tarih</label>
+			<input type="date" class="form-control" id="date" name="date" required />
+		</div>
+		<button type="submit" class="btn btn-primary">Ekle</button>
+	</form>
+</div>
