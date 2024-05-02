@@ -46,3 +46,29 @@ body {
 		justify-content: flex-start; /* Mobilde menü öğeleri sola */
 	}
 }
+
+/* anasayfa kartları için özel stiller */
+.custom-card {
+	height: 350px; /* Mobil cihazlar için yükseklik */
+	transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.custom-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.custom-card-body {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+}
+
+/* Masaüstü cihazlar için medya sorgusu */
+@media (min-width: 768px) {
+	.custom-card {
+		height: 250px; /* Masaüstü cihazlar için yükseklik */
+	}
+}
