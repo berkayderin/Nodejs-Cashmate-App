@@ -2,10 +2,14 @@
 	<main>
 		<div class="row py-md-5 text-center justify-content-center">
 			<div class="col-md-12 col-lg-6 mb-6 mb-md-0">
-				<h1 class="display-2 fw-bold mb-4 position-relative">Gelir Gider Hesapla</h1>
-				<p class="fs-4 mb-0">İşte gelir gider hesaplama aracı.</p>
-				<p class="fs-5">Bu araç ile gelir ve giderlerinizi karşılaştırabilirsiniz.</p>
+				<h1 class="display-2 fw-bold mb-4 position-relative">Param <span class="text-success">Nerede?</span></h1>
+				<p class="fs-4 mb-1">Birkaç tıklama ile harcamalarınızı takip edin.</p>
+				<p class="fs-4">Gelir ve giderlerinizi kontrol altına alın.</p>
+				<% if (isAuthenticated) { %>
+				<a href="/dashboard" class="btn btn-success btn-lg rounded-5">Panele Git</a>
+				<% } else { %>
 				<a href="/auth/google" class="btn btn-success btn-lg rounded-5">Şimdi Ücretsiz Dene</a>
+				<% } %>
 			</div>
 		</div>
 	</main>

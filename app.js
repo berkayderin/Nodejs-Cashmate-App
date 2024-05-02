@@ -2,6 +2,7 @@ require('dotenv').config()
 
 const express = require('express')
 const expressLayouts = require('express-ejs-layouts')
+const methodOverride = require('method-override')
 const connectDB = require('./server/config/db')
 const session = require('express-session')
 const passport = require('passport')
@@ -26,8 +27,18 @@ app.use(
 app.use(passport.initialize()) // passport başlat
 app.use(passport.session()) // passport session
 
+// kullanıcı bilgilerini global olarak kullanmak için
+app.use((req, res, next) => {
+	res.locals.isAuthenticated = req.isAuthenticated()
+	res.locals.user = req.user
+	next()
+})
+
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
+
+// method-override
+app.use(methodOverride('_method'))
 
 // mongodb
 connectDB()
