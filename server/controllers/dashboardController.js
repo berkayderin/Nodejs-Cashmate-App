@@ -90,6 +90,7 @@ exports.dashboardEditTransaction = async (req, res) => {
 	}
 }
 
+// transaction güncelle
 exports.updateTransaction = async (req, res) => {
 	const { id } = req.params
 	const { description, amount, type, date } = req.body
@@ -110,6 +111,7 @@ exports.updateTransaction = async (req, res) => {
 	}
 }
 
+// transaction sil
 exports.deleteTransaction = async (req, res) => {
 	try {
 		await Transaction.deleteOne({ _id: req.params.id, userId: req.user.id })
@@ -120,6 +122,7 @@ exports.deleteTransaction = async (req, res) => {
 	}
 }
 
+// transaction ekleme sayfasını getir
 exports.addTransaction = async (req, res) => {
 	const locals = {
 		title: 'Add transaction | cashmate',
