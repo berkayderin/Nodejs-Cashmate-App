@@ -23,8 +23,8 @@
 				<tr>
 					<th scope="row"><%= index + 1 %></th>
 					<td><%= transaction.description %></td>
-					<td><%= transaction.date %></td>
-					<td><%= transaction.amount %></td>
+					<td><%= formatDate(transaction.date, false) %></td>
+					<td><%= formatNumber(transaction.amount) %> TL</td>
 					<td>
 						<a href="/dashboard/<%= transaction._id %>/edit" class="btn btn-primary">Düzenle</a>
 						<form action="/dashboard/<%= transaction._id %>/delete?_method=DELETE" method="POST" class="d-inline">

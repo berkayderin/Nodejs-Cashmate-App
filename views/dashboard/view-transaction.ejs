@@ -32,7 +32,7 @@
 							<%= transaction.type === 'expense' ? '-' : '+' %><%= transaction.amount %> TL
 						</span>
 					</p>
-					<p class="card-text"><strong>Tarih:</strong> <%= transaction.date %></p>
+					<p class="card-text"><strong>Tarih:</strong> <%= formatDate(transaction.date, false) %></p>
 				</div>
 			</div>
 		</div>
