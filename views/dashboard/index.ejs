@@ -15,9 +15,10 @@
 					<p class="card-text">
 						<strong>Miktar:</strong>
 						<span class="<%= transaction.type === 'expense' ? 'text-danger' : 'text-success' %>">
-							<%= transaction.type === 'expense' ? '-' : '+' %><%- transaction.amount %> TL
+							<%= transaction.type === 'expense' ? '-' : '+' %><%- formatNumber(transaction.amount) %> TL
 						</span>
 					</p>
+					<p class="card-text mb-0"><strong>Tarih:</strong> <%- formatDate(transaction.date,false) %></p>
 					<div class="d-flex justify-content-end">
 						<a href="/dashboard/<%- transaction._id %>" class="btn btn-dark me-2">
 							<i class="fas fa-eye"></i>

@@ -19,6 +19,8 @@ exports.dashboard = async (req, res) => {
 			firstName: req.user.firstName,
 			locals,
 			transactions,
+			formatNumber,
+			formatDate,
 			layout: '../views/layouts/dashboard'
 		})
 	} catch (error) {
