@@ -1,6 +1,8 @@
 const Transaction = require('../models/Transaction')
 const mongoose = require('mongoose')
 const router = require('../routes')
+const formatDate = require('../functions/formatDate')
+const formatNumber = require('../functions/formatNumber')
 
 // tüm transactionları getir
 exports.dashboard = async (req, res) => {
@@ -43,6 +45,7 @@ exports.dashboardViewTransaction = async (req, res) => {
 				transactionId: req.params.id,
 				locals,
 				transaction,
+				formatDate,
 				layout: '../views/layouts/dashboard'
 			})
 		} else {
@@ -168,20 +171,28 @@ exports.incomes = async (req, res) => {
 
 		// toplam gelir
 		const totalIncome = transactions.reduce((acc, transaction) => acc + transaction.amount, 0)
+		const formattedTotalIncome = totalIncome.toLocaleString('tr-TR')
 
-		// maksimum gelir
+		// Maksimum gelir
 		const maxIncome = transactions.reduce((acc, transaction) => Math.max(acc, transaction.amount), 0)
+		const formattedMaxIncome = maxIncome.toLocaleString('tr-TR')
 
 		// minimum gelir
-		const minIncome = transactions.reduce((acc, transaction) => Math.min(acc, transaction.amount), 0)
+		const minIncome =
+			transactions.length > 0
+				? transactions.reduce((acc, transaction) => Math.min(acc, transaction.amount), transactions[0].amount)
+				: 0
+		const formattedMinIncome = minIncome.toLocaleString('tr-TR')
 
 		res.render('dashboard/incomes', {
 			firstName: req.user.firstName,
 			locals,
 			transactions,
-			totalIncome,
-			maxIncome,
-			minIncome,
+			totalIncome: formattedTotalIncome,
+			maxIncome: formattedMaxIncome,
+			minIncome: formattedMinIncome,
+			formatDate,
+			formatNumber,
 			layout: '../views/layouts/dashboard'
 		})
 	} catch (error) {
@@ -190,6 +201,7 @@ exports.incomes = async (req, res) => {
 	}
 }
 
+// expense / gider sayfasını getir
 exports.expenses = async (req, res) => {
 	const locals = {
 		title: 'Giderlerim | cashmate',
@@ -204,20 +216,28 @@ exports.expenses = async (req, res) => {
 
 		// toplam gider
 		const totalExpense = transactions.reduce((acc, transaction) => acc + transaction.amount, 0)
+		const formattedTotalExpense = totalExpense.toLocaleString('tr-TR')
 
 		// maksimum gider
 		const maxExpense = transactions.reduce((acc, transaction) => Math.max(acc, transaction.amount), 0)
+		const formattedMaxExpense = maxExpense.toLocaleString('tr-TR')
 
 		// minimum gider
-		const minExpense = transactions.reduce((acc, transaction) => Math.min(acc, transaction.amount), 0)
+		const minExpense =
+			transactions.length > 0
+				? transactions.reduce((acc, transaction) => Math.min(acc, transaction.amount), transactions[0].amount)
+				: 0
+		const formattedMinExpense = minExpense.toLocaleString('tr-TR')
 
 		res.render('dashboard/expenses', {
 			firstName: req.user.firstName,
 			locals,
 			transactions,
-			totalExpense,
-			maxExpense,
-			minExpense,
+			totalExpense: formattedTotalExpense,
+			maxExpense: formattedMaxExpense,
+			minExpense: formattedMinExpense,
+			formatDate,
+			formatNumber,
 			layout: '../views/layouts/dashboard'
 		})
 	} catch (error) {
