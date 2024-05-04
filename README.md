@@ -25,7 +25,7 @@ Cashmate, kullanıcıların finansal işlemlerini yönetmelerine yardımcı olan
 
 1. Repo'yu klonlayın:
    ```bash
-   git clone https://example.com/cashmate-app.git
+   git clone   https://github.com/berkayderin/Nodejs-Cashmate-App.git
    cd cashmate-app
    ```
 
