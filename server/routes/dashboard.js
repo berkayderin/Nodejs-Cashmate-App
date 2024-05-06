@@ -8,6 +8,7 @@ router.get('/dashboard/add', isLoggedIn, dashboardController.addTransaction)
 
 router.get('/dashboard/incomes', isLoggedIn, dashboardController.incomes)
 router.get('/dashboard/expenses', isLoggedIn, dashboardController.expenses)
+router.get('/dashboard/analytics', isLoggedIn, dashboardController.analytics)
 
 router.post('/dashboard/add', isLoggedIn, dashboardController.createTransaction)
 router.get('/dashboard/:id', isLoggedIn, dashboardController.dashboardViewTransaction)

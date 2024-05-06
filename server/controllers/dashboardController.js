@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const router = require('../routes')
 const formatDate = require('../functions/formatDate')
 const formatNumber = require('../functions/formatNumber')
+const categorizeTransaction = require('../functions/categorizeTransaction')
 
 // tüm transactionları getir
 exports.dashboard = async (req, res) => {
@@ -143,17 +144,23 @@ exports.addTransaction = async (req, res) => {
 	}
 }
 
+// transaction oluştur
 exports.createTransaction = async (req, res) => {
 	const { description, amount, type, date } = req.body
 	try {
+		const category = categorizeTransaction(description)
+
 		const transaction = new Transaction({
 			description,
 			amount,
 			type,
 			date,
-			userId: req.user.id
+			userId: req.user.id,
+			category
 		})
+
 		await transaction.save()
+
 		res.redirect('/dashboard/')
 	} catch (error) {
 		console.error('Error creating transaction:', error)
@@ -247,6 +254,86 @@ exports.expenses = async (req, res) => {
 		})
 	} catch (error) {
 		console.error('Error rendering expenses page:', error)
+		res.status(500).send('Internal Server Error')
+	}
+}
+
+// analytics / analiz sayfasını getir
+exports.analytics = async (req, res) => {
+	const locals = {
+		title: 'Analiz | cashmate',
+		description: 'Analytics page'
+	}
+
+	try {
+		const transactions = await Transaction.find({
+			userId: req.user.id
+		}).sort({ date: -1 })
+
+		// toplam gelir
+		const totalIncome = transactions
+			.filter((transaction) => transaction.type === 'income')
+			.reduce((acc, transaction) => acc + transaction.amount, 0)
+		const formattedTotalIncome = totalIncome.toLocaleString('tr-TR')
+
+		// toplam gider
+		const totalExpense = transactions
+			.filter((transaction) => transaction.type === 'expense')
+			.reduce((acc, transaction) => acc + transaction.amount, 0)
+		const formattedTotalExpense = totalExpense.toLocaleString('tr-TR')
+
+		// toplam bakiye
+		const totalBalance = totalIncome - totalExpense
+		const formattedTotalBalance = totalBalance.toLocaleString('tr-TR')
+
+		// en çok harcama yapılan kategori
+		const expenseCategories = transactions
+			.filter((transaction) => transaction.type === 'expense')
+			.map((transaction) => transaction.category)
+		const categoryCount = expenseCategories.reduce((acc, category) => {
+			acc[category] = (acc[category] || 0) + 1
+			return acc
+		}, {})
+		const mostSpentCategory = Object.keys(categoryCount).reduce((a, b) => (categoryCount[a] > categoryCount[b] ? a : b))
+
+		// en çok harcama yapılan gün
+		const dateCount = transactions.reduce((acc, transaction) => {
+			const date = transaction.date.toISOString().substring(0, 10)
+			acc[date] = (acc[date] || 0) + 1
+			return acc
+		}, {})
+		const mostSpentDate = Object.keys(dateCount).reduce((a, b) => (dateCount[a] > dateCount[b] ? a : b))
+		const mostSpentDay = new Date(mostSpentDate).toLocaleDateString('tr-TR', {
+			weekday: 'long',
+			year: 'numeric',
+			month: 'long',
+			day: 'numeric'
+		})
+
+		// en çok harcama yapılan günün harcama miktarı
+		const mostSpentDayTransactions = transactions.filter(
+			(transaction) => transaction.date.toISOString().substring(0, 10) === mostSpentDate
+		)
+		const mostSpentDayTotalExpense = mostSpentDayTransactions.reduce((acc, transaction) => acc + transaction.amount, 0)
+		const formattedMostSpentDayTotalExpense = mostSpentDayTotalExpense.toLocaleString('tr-TR')
+
+		res.render('dashboard/analytics', {
+			firstName: req.user.firstName,
+			locals,
+			transactions,
+			totalIncome: formattedTotalIncome, // toplam gelir
+			totalExpense: formattedTotalExpense, // toplam gider
+			totalBalance: formattedTotalBalance, // toplam bakiye
+			mostSpentCategory, // en çok harcama yapılan kategori
+			mostSpentDay, // en çok harcama yapılan gün
+			mostSpentDate, // en çok harcama yapılan gün (tarih)
+			mostSpentDayTotalExpense: formattedMostSpentDayTotalExpense, // en çok harcama yapılan günün harcama miktarı
+			formatDate,
+			formatNumber,
+			layout: '../views/layouts/dashboard'
+		})
+	} catch (error) {
+		console.error('Error rendering analytics page:', error)
 		res.status(500).send('Internal Server Error')
 	}
 }

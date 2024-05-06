@@ -1,0 +1,25 @@
+<div class="container">
+	<h1>Finansal Analizler</h1>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="card mb-3">
+				<div class="card-header fw-semibold">Toplam Gelir</div>
+				<div class="card-body"><%= totalIncome %> TL</div>
+			</div>
+			<div class="card mb-3">
+				<div class="card-header fw-semibold">Toplam Gider</div>
+				<div class="card-body"><%= totalExpense %> TL</div>
+			</div>
+			<div class="card mb-3">
+				<div class="card-header fw-semibold">Toplam Bakiye</div>
+				<div class="card-body"><%= totalBalance %> TL</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="card mb-3">
+				<div class="card-header fw-semibold">En çok harcama yapılan gün</div>
+				<div class="card-body"><%= mostSpentDay %> - <%= mostSpentDayTotalExpense %> TL</div>
+			</div>
+		</div>
+	</div>
+</div>
